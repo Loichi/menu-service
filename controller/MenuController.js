@@ -2,16 +2,25 @@ const Menu = require('../model/Menu');
 
 // Creer un Menu
 async function createMenu(req, res) {
-  const { name, description, categories, price } = req.body;
-
   try {
-    const newMenu = await Menu.create({
-      name,
-      description,
-      categories,
-      price
+    let menu_price = 0; 
+    
+    
+    req.body.categories.forEach(category => {
+      if (category.price) {
+        menu_price += category.price; // Ajouter le prix de la catégorie au prix total du menu
+      }
+      
     });
 
+    console.log(menu_price);
+
+ 
+    req.body.menu_price = menu_price;
+    
+
+    const newMenu = await Menu.create(req.body);
+    
     res.status(201).json(newMenu);
   } catch (err) {
     console.error('Erreur lors de la création du menu :', err);

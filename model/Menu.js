@@ -6,15 +6,15 @@ const menuItemSchema = new mongoose.Schema({
 });
 
 const menuCategorySchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    items: [menuItemSchema]
+  name: { type: String, required: true },
+  items: [menuItemSchema],
+  price: {type: Number, required: false}
 });
 
 const menuSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    description: { type: String },
     categories: [menuCategorySchema],
-    price: { type: Number, required: true }
+    menu_price: { type: Number, required: true }
 });
 
 const Menu = mongoose.model('Menu', menuSchema);
